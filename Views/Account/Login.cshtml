@@ -1,0 +1,17 @@
+@model LoginVM
+@{ ViewData["Title"] = "Iniciar sesión"; }
+<div class="caja">
+    <h2>Iniciar sesión</h2>
+    <form method="post">
+        <div class="error" asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" name="returnUrl" value="@ViewData["ReturnUrl"]" />
+        <label asp-for="Correo">Correo</label>
+        <input asp-for="Correo" />
+        <span class="error" asp-validation-for="Correo"></span>
+        <label asp-for="Password">Contraseña</label>
+        <input asp-for="Password" />
+        <span class="error" asp-validation-for="Password"></span>
+        <button class="btn" type="submit">Entrar</button>
+    </form>
+    <p>¿No tienes cuenta? <a asp-action="Registro">Regístrate</a></p>
+</div>

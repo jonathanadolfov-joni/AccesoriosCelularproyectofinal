@@ -1,0 +1,28 @@
+@model List<LineaCarrito>
+@{ ViewData["Title"] = "Carrito"; }
+<h2>Tu carrito</h2>
+@if (!Model.Any())
+{
+    <p>El carrito está vacío.</p>
+    <a class="btn" asp-controller="Productos" asp-action="Index">Ir al catálogo</a>
+}
+else
+{
+<table>
+    <thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Subtotal</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var l in Model)
+    {
+        <tr>
+            <td>@l.Nombre</td>
+            <td>@l.Precio.ToString("C")</td>
+            <td>@l.Cantidad</td>
+            <td>@l.Subtotal.ToString("C")</td>
+            <td><form asp-action="Quitar" asp-route-id="@l.ProductoId" method="post"><button class="link oscuro" type="submit">Quitar</button></form></td>
+        </tr>
+    }
+    </tbody>
+</table>
+<p class="total">Total: @Model.Sum(l => l.Subtotal).ToString("C")</p>
+<form asp-action="Confirmar" method="post"><button class="btn" type="submit">Confirmar compra</button></form>
+}

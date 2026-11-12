@@ -1,0 +1,22 @@
+@model List<Pedido>
+@{ ViewData["Title"] = "Pedidos"; var admin = User.IsInRole("Admin"); }
+<h2>@(admin ? "Todos los pedidos" : "Mis pedidos")</h2>
+@if (!Model.Any()) { <p>Aún no hay pedidos.</p> }
+else
+{
+<table>
+    <thead><tr><th>Pedido</th><th>Fecha</th>@if (admin) { <th>Cliente</th> }<th>Total</th><th></th></tr></thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>#@p.Id.ToString("D5")</td>
+            <td>@p.Fecha.ToString("dd/MM/yyyy HH:mm")</td>
+            @if (admin) { <td>@p.Usuario?.Nombre</td> }
+            <td>@p.Total.ToString("C")</td>
+            <td><a asp-action="Ticket" asp-route-id="@p.Id">Ver ticket</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+}

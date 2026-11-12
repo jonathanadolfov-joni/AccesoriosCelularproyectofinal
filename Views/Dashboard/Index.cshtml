@@ -1,0 +1,36 @@
+@model DashboardVM
+@{ ViewData["Title"] = "Dashboard"; var max = Model.Top.Any() ? Model.Top.Max(t => t.Unidades) : 1; }
+<h2>Estadísticas</h2>
+<div class="tarjetas">
+    <div><strong>@Model.TotalVentas.ToString("C")</strong><span>Ventas totales</span></div>
+    <div><strong>@Model.Pedidos</strong><span>Pedidos</span></div>
+    <div><strong>@Model.Productos</strong><span>Productos</span></div>
+    <div><strong>@Model.Usuarios</strong><span>Usuarios</span></div>
+</div>
+
+<h3>Productos más vendidos</h3>
+@if (!Model.Top.Any()) { <p>Aún no hay ventas.</p> }
+else
+{
+    foreach (var t in Model.Top)
+    {
+        var pct = t.Unidades * 100 / max;
+        <div class="fila-graf">
+            <span>@t.Nombre</span>
+            <div class="barra-graf"><div style="width:@(pct)%"></div></div>
+            <b>@t.Unidades</b>
+        </div>
+    }
+}
+
+<h3>Stock bajo (menos de 10)</h3>
+@if (!Model.StockBajo.Any()) { <p>Todos los productos tienen existencias suficientes.</p> }
+else
+{
+<table>
+    <thead><tr><th>Producto</th><th>Stock</th></tr></thead>
+    <tbody>
+    @foreach (var p in Model.StockBajo) { <tr><td>@p.Nombre</td><td>@p.Stock</td></tr> }
+    </tbody>
+</table>
+}

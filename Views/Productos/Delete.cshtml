@@ -1,0 +1,10 @@
+@model Producto
+@{ ViewData["Title"] = "Eliminar producto"; }
+<div class="caja">
+    <h2>¿Eliminar "@Model.Nombre"?</h2>
+    <p>Esta acción no se puede deshacer.</p>
+    <form method="post">
+        <button class="btn peligro" type="submit">Eliminar</button>
+        <a asp-action="Index">Cancelar</a>
+    </form>
+</div>

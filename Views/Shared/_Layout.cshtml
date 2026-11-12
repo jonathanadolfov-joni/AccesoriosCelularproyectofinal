@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Accesorios Celular</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+<header class="top">
+    <a class="marca" asp-controller="Home" asp-action="Index">Accesorios Celular</a>
+    <nav>
+        <a asp-controller="Home" asp-action="Index">Inicio</a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="Productos" asp-action="Index">Catálogo</a>
+            <a asp-controller="Carrito" asp-action="Index">Carrito</a>
+            <a asp-controller="Pedidos" asp-action="Index">@(User.IsInRole("Admin") ? "Pedidos" : "Mis pedidos")</a>
+            @if (User.IsInRole("Admin")) { <a asp-controller="Dashboard" asp-action="Index">Dashboard</a> }
+            <span class="usuario">@User.Identity.Name</span>
+            <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                <button type="submit" class="link">Cerrar sesión</button>
+            </form>
+        }
+        else
+        {
+            <a asp-controller="Account" asp-action="Login">Iniciar sesión</a>
+            <a asp-controller="Account" asp-action="Registro">Registrarse</a>
+        }
+    </nav>
+</header>
+<main>
+    @if (TempData["Mensaje"] is string m) { <p class="aviso">@m</p> }
+    @RenderBody()
+</main>
+</body>
+</html>

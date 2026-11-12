@@ -1,0 +1,37 @@
+@model List<Producto>
+@{ ViewData["Title"] = "Catálogo"; var admin = User.IsInRole("Admin"); }
+<div class="barra">
+    <h2>Catálogo</h2>
+    @if (admin) { <a class="btn" asp-action="Create">Nuevo producto</a> }
+</div>
+@if (!Model.Any()) { <p>Aún no hay productos.</p> }
+else
+{
+<table>
+    <thead><tr><th></th><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th></th>@if (admin) { <th></th> }</tr></thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@if (!string.IsNullOrWhiteSpace(p.ImagenUrl)) { <img class="mini" src="@p.ImagenUrl" alt="@p.Nombre" /> }</td>
+            <td><strong>@p.Nombre</strong><br /><small>@p.Descripcion</small></td>
+            <td>@p.Categoria?.Nombre</td>
+            <td>@p.Precio.ToString("C")</td>
+            <td>@p.Stock</td>
+            <td>
+                <form asp-controller="Carrito" asp-action="Agregar" asp-route-id="@p.Id" method="post">
+                    <button class="btn chico" type="submit" disabled="@(p.Stock == 0)">Agregar al carrito</button>
+                </form>
+            </td>
+            @if (admin)
+            {
+                <td class="acciones">
+                    <a asp-action="Edit" asp-route-id="@p.Id">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@p.Id">Eliminar</a>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+}

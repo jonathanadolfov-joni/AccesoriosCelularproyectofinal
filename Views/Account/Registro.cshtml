@@ -1,0 +1,21 @@
+@model RegistroVM
+@{ ViewData["Title"] = "Registrarse"; }
+<div class="caja">
+    <h2>Crear cuenta</h2>
+    <form method="post">
+        <label asp-for="Nombre">Nombre</label>
+        <input asp-for="Nombre" />
+        <span class="error" asp-validation-for="Nombre"></span>
+        <label asp-for="Correo">Correo</label>
+        <input asp-for="Correo" />
+        <span class="error" asp-validation-for="Correo"></span>
+        <label asp-for="Password">Contraseña</label>
+        <input asp-for="Password" />
+        <span class="error" asp-validation-for="Password"></span>
+        <label asp-for="Confirmar">Repetir contraseña</label>
+        <input asp-for="Confirmar" />
+        <span class="error" asp-validation-for="Confirmar"></span>
+        <button class="btn" type="submit">Crear cuenta</button>
+    </form>
+    <p>¿Ya tienes cuenta? <a asp-action="Login">Inicia sesión</a></p>
+</div>

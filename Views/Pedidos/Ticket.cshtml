@@ -1,0 +1,21 @@
+@model Pedido
+@{ ViewData["Title"] = "Ticket"; }
+<div class="ticket">
+    <h2>Accesorios Celular</h2>
+    <p>Ticket #@Model.Id.ToString("D5")<br />
+       Fecha: @Model.Fecha.ToString("dd/MM/yyyy HH:mm")<br />
+       Cliente: @Model.Usuario?.Nombre</p>
+    <table>
+        <thead><tr><th>Producto</th><th>Cant.</th><th>Importe</th></tr></thead>
+        <tbody>
+        @foreach (var d in Model.Detalles)
+        {
+            <tr><td>@d.Nombre</td><td>@d.Cantidad</td><td>@((d.PrecioUnitario * d.Cantidad).ToString("C"))</td></tr>
+        }
+        </tbody>
+    </table>
+    <p class="total">Total: @Model.Total.ToString("C")</p>
+    <p>Gracias por tu compra.</p>
+    <button class="btn noprint" onclick="window.print()">Imprimir ticket</button>
+    <a class="noprint" asp-action="Index">Volver a pedidos</a>
+</div>

@@ -1,0 +1,22 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model Producto
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <label asp-for="Nombre">Nombre</label>
+    <input asp-for="Nombre" />
+    <span class="error" asp-validation-for="Nombre"></span>
+    <label asp-for="Descripcion">Descripción</label>
+    <input asp-for="Descripcion" />
+    <label asp-for="CategoriaId"></label>
+    <select asp-for="CategoriaId" asp-items="(SelectList)ViewBag.Categorias"></select>
+    <label asp-for="Precio">Precio</label>
+    <input asp-for="Precio" type="number" step="0.01" />
+    <span class="error" asp-validation-for="Precio"></span>
+    <label asp-for="Stock">Stock</label>
+    <input asp-for="Stock" type="number" />
+    <span class="error" asp-validation-for="Stock"></span>
+    <label asp-for="ImagenUrl">Imagen (ruta, ej. /img/funda.jpg)</label>
+    <input asp-for="ImagenUrl" />
+    <button class="btn" type="submit">Guardar</button>
+    <a asp-action="Index">Cancelar</a>
+</form>

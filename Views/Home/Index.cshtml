@@ -1,0 +1,13 @@
+@{ ViewData["Title"] = "Inicio"; }
+<section class="hero">
+    <h1>Todo lo que tu celular necesita</h1>
+    <p>Fundas, cargadores, audífonos y micas al mejor precio.</p>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a class="btn" asp-controller="Productos" asp-action="Index">Ver catálogo</a>
+    }
+    else
+    {
+        <a class="btn" asp-controller="Account" asp-action="Login">Iniciar sesión para ver el catálogo</a>
+    }
+</section>
